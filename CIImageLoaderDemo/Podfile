@@ -1,0 +1,22 @@
+use_frameworks!
+
+platform :ios, '10.0'
+
+target 'CIImageLoaderDemo' do
+  pod 'Masonry'
+#  pod 'CloudInfinite/CloudInfinite',      path:'../'
+  pod 'CloudInfinite',                    path:'../'
+  pod 'CloudInfinite/TPG',                path:'../'
+  pod 'CloudInfinite/AVIF',                path:'../'
+  pod 'CloudInfinite/SDWebImage-CloudInfinite',     path:'../'
+  pod 'CloudInfinite/CIDownloader',     path:'../'
+#  pod 'CloudInfinite/CIDNS',     path:'../'
+  pod 'CloudInfinite/Loader',             path:'../'
+  pod 'CloudInfinite/Quic',             path:'../'
+  pod 'SDWebImageWebPCoder'
+
+  target 'CIImageLoaderDemoTests' do
+    inherit! :search_paths
+  end
+end
+

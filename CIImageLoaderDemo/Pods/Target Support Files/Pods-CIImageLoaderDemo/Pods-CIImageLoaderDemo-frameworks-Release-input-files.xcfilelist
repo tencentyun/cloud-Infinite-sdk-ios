@@ -1,0 +1,6 @@
+${PODS_ROOT}/Target Support Files/Pods-CIImageLoaderDemo/Pods-CIImageLoaderDemo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework
+${PODS_ROOT}/QCloudQuic/QCloudQuic/Classes/QuicFramework/Tquic.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SDWebImageWebPCoder/SDWebImageWebPCoder.framework
+${BUILT_PRODUCTS_DIR}/libwebp/libwebp.framework

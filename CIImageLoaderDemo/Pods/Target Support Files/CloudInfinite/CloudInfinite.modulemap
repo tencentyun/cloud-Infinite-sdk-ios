@@ -1,0 +1,6 @@
+framework module CloudInfinite {
+  umbrella header "CloudInfinite-umbrella.h"
+
+  export *
+  module * { export * }
+}

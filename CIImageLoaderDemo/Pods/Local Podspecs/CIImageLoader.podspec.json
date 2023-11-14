@@ -1,0 +1,34 @@
+{
+  "name": "CIImageLoader",
+  "version": "1.0.0",
+  "summary": "CIImageLoader--腾讯云——数据万象TPG图片解码渲染",
+  "description": "CIImageLoader--腾讯云iOS-数据万象。提供腾讯云——数据万象iOS——TPG数据解码渲染",
+  "homepage": "https://cloud.tencent.com/",
+  "license": "MIT",
+  "authors": {
+    "garenwang": "garenwang@tencent.com"
+  },
+  "source": {
+    "git": "http://git.code.oa.com/qcloud-terminal/QCloudiOSCodes/tree/develop/Libs/CIImageLoader",
+    "branch": "develop"
+  },
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.14"
+  },
+  "frameworks": "SystemConfiguration",
+  "source_files": "Pod/Classes/*",
+  "public_header_files": [
+    "Pod/Classes/CIImageLoader.h",
+    "Pod/Classes/*"
+  ],
+  "dependencies": {
+    "QCloudCore": [
+
+    ],
+    "CloudImage": [
+
+    ]
+  },
+  "static_framework": true
+}

@@ -1,0 +1,27 @@
+{
+  "name": "TPGImage",
+  "version": "1.0.0",
+  "summary": "TPGImage 腾讯云iOS-SDK组件",
+  "description": "TPGImage 腾讯云iOS-SDK组件 加载本地TPG图片",
+  "homepage": "https://cloud.tencent.com/",
+  "license": "MIT",
+  "authors": {
+    "garenwang": "garenwang@tencent.com"
+  },
+  "source": {
+    "git": "http://git.code.oa.com/qcloud-terminal/QCloudiOSCodes/tree/develop/Libs/TPGImage",
+    "branch": "develop"
+  },
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.14"
+  },
+  "source_files": "Pod/Classes/**/*",
+  "vendored_libraries": "Pod/Classes/TPGDecoder/*.a",
+  "public_header_files": [
+    "Pod/Classes/TPGImage.h",
+    "Pod/Classes/ImageView/TPGImageView.h",
+    "Pod/Classes/ImageView/TPGDecoderHelper.h"
+  ],
+  "static_framework": true
+}

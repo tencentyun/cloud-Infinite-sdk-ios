@@ -1,0 +1,22 @@
+{
+  "name": "CloudImage",
+  "version": "1.0.0",
+  "summary": "CloudImage 腾讯云iOS-SDK组件",
+  "description": "CloudImage 腾讯云iOS-SDK组件",
+  "homepage": "https://cloud.tencent.com/",
+  "license": "MIT",
+  "authors": {
+    "garenwang": "garenwang@tencent.com"
+  },
+  "source": {
+    "git": "http://git.code.oa.com/qcloud-terminal/QCloudiOSCodes/tree/develop/Libs/CloudImage",
+    "branch": "develop"
+  },
+  "platforms": {
+    "ios": "10.0",
+    "osx": "10.14"
+  },
+  "source_files": "Pod/Classes/*",
+  "public_header_files": "Pod/Classes/*.h",
+  "static_framework": true
+}

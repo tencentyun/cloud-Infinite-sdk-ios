@@ -1,0 +1,6 @@
+framework module QCloudQuic {
+  umbrella header "QCloudQuic-umbrella.h"
+
+  export *
+  module * { export * }
+}
