@@ -660,7 +660,7 @@ SDWebImage-CloudInfinite提供了两种加载TPG图片的方式；
 <div id="changelog"></div>
 
 ## 更新日志
-
+(最低版本号1.5.0)
 * #### Version 1.5.1
 
     1 新增cloudavif.a&cloudtpg.a
@@ -671,102 +671,6 @@ SDWebImage-CloudInfinite提供了两种加载TPG图片的方式；
     2 接入quic、HTTPDNS。
     3 支持配置重试、并发数以及tpg、avif原图保护。
 
-* #### Version 1.4.4
-    2022-03-02
-    1 集成灯塔上报（TPG、AVIF）。
-    2 新增TPGSlim 、AVIFSlim
-    
-    
-
-* #### Version 1.4.1
-    2022-08-26
-    
-    修复tpg 解码含有透明通道的图片
-
-* #### Version 1.4.0
-    2022-08-26
-    
-    yuv增加armv7架构
-
-* #### Version 1.3.9
-    2022-08-26
-    
-    podspec删除all_load
-
-* #### Version 1.3.8
-    2021-11-21
-    
-    新增avif图片解码
-
-* #### Version 1.3.6
-    2021-05-18
-    
-    修复TPG crash
-
-* #### Version 1.3.5
-    2020-11-05
-    
-    解决本sdk与其他sdk冲突问题
-
-
-
-* #### Version 1.3.4
-    2020-09-21
-    
-    修复部分包含透明通道gif解码白色背景问题
-
-
-###
-
-* #### Version 1.3.3
-    2020-09-17
-    
-    补充自定义SDWebimage解码器未实现编码方法
-
-
-###
-
-* #### Version 1.3.2
-    2020-08-24
-    
-    降低TPG解码内存消耗
-
-
-###
-
-* #### Version 1.3.1
-    2020-08-21
-    
-    优化TPG解码
-
-
-###
-
-* #### Version 1.3.0
-    2020-08-19
-
-    支持WEBP图片解码渲染
-
-###
-
-* #### Version 1.2.0
-    2020-08-18
-
-    支持TPG动图加载
-
-    支持数据万象图片基础操作
-
-###
-
-* #### Version 1.0.0
-
-    2020-07-29
-
-    首次发布
-
-    图片格式转换功能
-
-    TPG图片加载功能
 
 ## 卸载SDK
 在您工程Podfile文件中删除本sdk的依赖，然后执行
