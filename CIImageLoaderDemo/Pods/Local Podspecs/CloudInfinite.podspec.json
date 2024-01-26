@@ -64,11 +64,12 @@
         "CloudInfinite/Classes/TPG/TPGDecoder/*.a",
         "CloudInfinite/Classes/Lib/*.a"
       ],
-      "vendored_frameworks": [
-        "CloudInfinite/Classes/TPG/TPGDecoder/libpng.framework",
-        "CloudInfinite/Classes/BeaconFramework/BeaconAPI_Base.framework",
-        "CloudInfinite/Classes/BeaconFramework/QimeiSDK.framework"
-      ]
+      "vendored_frameworks": "CloudInfinite/Classes/TPG/TPGDecoder/libpng.framework",
+      "dependencies": {
+        "QCloudTrack/Beacon": [
+          "6.3.5"
+        ]
+      }
     },
     {
       "name": "TPGSlim",
@@ -96,10 +97,11 @@
         "CloudInfinite/Classes/AVIF/AVIFDecoder/*.a",
         "CloudInfinite/Classes/Lib/*.a"
       ],
-      "vendored_frameworks": [
-        "CloudInfinite/Classes/BeaconFramework/BeaconAPI_Base.framework",
-        "CloudInfinite/Classes/BeaconFramework/QimeiSDK.framework"
-      ]
+      "dependencies": {
+        "QCloudTrack/Beacon": [
+          "6.3.5"
+        ]
+      }
     },
     {
       "name": "AVIFSlim",

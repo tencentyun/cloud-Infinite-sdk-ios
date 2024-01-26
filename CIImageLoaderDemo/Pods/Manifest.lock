@@ -1,7 +1,8 @@
 PODS:
   - CloudInfinite (1.5.1):
     - CloudInfinite/CloudInfinite (= 1.5.1)
-  - CloudInfinite/AVIF (1.5.1)
+  - CloudInfinite/AVIF (1.5.1):
+    - QCloudTrack/Beacon (= 6.3.5)
   - CloudInfinite/CIDownloader (1.5.1):
     - CloudInfinite/SDWebImage-CloudInfinite
     - QCloudCore/WithoutMTA
@@ -14,7 +15,8 @@ PODS:
   - CloudInfinite/SDWebImage-CloudInfinite (1.5.1):
     - CloudInfinite/CloudInfinite
     - SDWebImage
-  - CloudInfinite/TPG (1.5.1)
+  - CloudInfinite/TPG (1.5.1):
+    - QCloudTrack/Beacon (= 6.3.5)
   - libwebp (1.2.4):
     - libwebp/demux (= 1.2.4)
     - libwebp/mux (= 1.2.4)
@@ -29,6 +31,7 @@ PODS:
   - QCloudQuic (6.3.0):
     - QCloudQuic/Default (= 6.3.0)
   - QCloudQuic/Default (6.3.0)
+  - QCloudTrack/Beacon (6.3.5)
   - SDWebImage (5.17.0):
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
@@ -53,6 +56,7 @@ SPEC REPOS:
     - Masonry
     - QCloudCore
     - QCloudQuic
+    - QCloudTrack
     - SDWebImage
     - SDWebImageWebPCoder
 
@@ -61,11 +65,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CloudInfinite: 80416a1ea5627c87f911d39e683be0a722da27bd
+  CloudInfinite: 8b914311d04846c3db77cf52ec8688ff6d9dc6bd
   libwebp: f62cb61d0a484ba548448a4bd52aabf150ff6eef
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   QCloudCore: 81d649400ba861fc8e182d135b567d8eefe09e65
   QCloudQuic: 33b71df4e4350b3cfe73dc32cbd8525ddb123b79
+  QCloudTrack: a1e25308ead00d58db596b8564c7f197a8a06102
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   SDWebImageWebPCoder: af09429398d99d524cae2fe00f6f0f6e491ed102
 

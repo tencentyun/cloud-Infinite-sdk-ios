@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "CloudInfinite"
-  s.version          = "1.5.1"
+  s.version          = "1.5.2"
   s.summary          = "CloudInfinite 腾讯云iOS-SDK组件"
 
   s.description      = <<-DESC
@@ -46,7 +46,8 @@ Pod::Spec.new do |s|
                        'CloudInfinite/Classes/TPG/TPGDecoder/include/*',
                        'CloudInfinite/Classes/Quality/*';
      tpg.vendored_libraries='CloudInfinite/Classes/TPG/TPGDecoder/*.a','CloudInfinite/Classes/Lib/*.a';
-     tpg.vendored_frameworks = 'CloudInfinite/Classes/TPG/TPGDecoder/libpng.framework','CloudInfinite/Classes/BeaconFramework/BeaconAPI_Base.framework','CloudInfinite/Classes/BeaconFramework/QimeiSDK.framework';
+     tpg.vendored_frameworks = 'CloudInfinite/Classes/TPG/TPGDecoder/libpng.framework';
+     tpg.dependency "QCloudTrack/Beacon","6.3.5";
   end
   
   s.subspec 'TPGSlim' do |tpgslim|
@@ -66,7 +67,7 @@ Pod::Spec.new do |s|
                        'CloudInfinite/Classes/AVIF/AVIFDecoder/include/*',
                        'CloudInfinite/Classes/Quality/*';
     avif.vendored_libraries='CloudInfinite/Classes/AVIF/AVIFDecoder/*.a','CloudInfinite/Classes/Lib/*.a';
-    avif.vendored_frameworks = 'CloudInfinite/Classes/BeaconFramework/BeaconAPI_Base.framework','CloudInfinite/Classes/BeaconFramework/QimeiSDK.framework'
+    avif.dependency "QCloudTrack/Beacon","6.3.5";
   end
   
   s.subspec 'AVIFSlim' do |avifslim|

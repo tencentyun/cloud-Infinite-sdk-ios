@@ -1,0 +1,6 @@
+framework module QCloudTrack {
+  umbrella header "QCloudTrack-umbrella.h"
+
+  export *
+  module * { export * }
+}

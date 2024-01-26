@@ -37,59 +37,66 @@ NSString * const Koriginal_height = @"original_height";
 
 @implementation CIQualityDataUploader
 
-+ (void)startWithAppkey{
-    
++ (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        Class cls = NSClassFromString(@"BeaconReport");
-        if (cls) {
-        
-            CISuppressPerformSelectorLeakWarning(id report = [cls performSelector:NSSelectorFromString(@"sharedInstance")];
-                                               [report performSelector:NSSelectorFromString(@"startWithAppkey:config:") withObject:kCIAppKey withObject:nil];
-
-            );
-        } else {
-            
-        }
+        [self startWithAppkey];
     });
 }
 
-+ (void)startReportSuccessEventKey:(NSString *)eventKey paramters:(NSDictionary *)paramter{
-    [self startWithAppkey];
-    NSInteger num = arc4random_uniform(10);
-    // 成功事件采样率百分之十
-    if(num == 5){
-        [self startReportWithEventKey:eventKey appkey:kCIAppKey paramters:paramter];
++ (void)startWithAppkey{
+    Class cls = NSClassFromString(@"QCloudTrackService");
+    Class beaconCls = NSClassFromString(@"QCloudBeaconTrackService");
+    if (cls && beaconCls) {
+        CISuppressPerformSelectorLeakWarning(
+            id report = [cls performSelector:NSSelectorFromString(@"singleService")];
+            [self trackBaseInfoToTrachCommonParams];
+        );
     }
+    
+}
+
++ (void)startReportSuccessEventKey:(NSString *)eventKey paramters:(NSDictionary *)paramter{
+//    [self startWithAppkey];
+//    NSInteger num = arc4random_uniform(10);
+//    // 成功事件采样率百分之十
+//    if(num == 5){
+//        [self startReportWithEventKey:eventKey appkey:kCIAppKey paramters:paramter];
+//    }
 }
 + (void)startReportFailureEventKey:(NSString *)eventKey paramters:(NSDictionary *)paramter{
-    [self startWithAppkey];
-    [self startReportWithEventKey:eventKey appkey:kCIAppKey paramters:paramter];
+//    [self startWithAppkey];
+//    [self startReportWithEventKey:eventKey appkey:kCIAppKey paramters:paramter];
 }
 
 
-+ (void)startReportWithEventKey:(NSString *)eventKey appkey:(NSString *)appkey paramters:(NSDictionary *)paramter {
++ (void)trackBaseInfoToTrachCommonParams{
 
-    NSMutableDictionary * mparams = [paramter mutableCopy];
-    [mparams setObject:@"1.5.1" forKey:@"decode_sdk_version_code"];
-    [mparams setObject:@"1.5.1" forKey:@"decode_sdk_version_name"];
-    paramter = [mparams copy];
-    Class cls = NSClassFromString(@"BeaconReport");
+    NSString * productName = @"CloudInfoinite";
+    NSString * sdkVersion = @"1.5.2";
+    NSString * sdkVersionName = @"1.5.2";
+    
+    Class cls = NSClassFromString(@"QCloudTrackService");
     if (cls) {
-      Class eventCls = NSClassFromString(@"BeaconEvent" );
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        id eventObj = [eventCls performSelector:NSSelectorFromString(@"new")];
-        if(appkey){
-             [eventObj performSelector:NSSelectorFromString(@"setAppKey:") withObject:appkey];
-
-         }
-        [eventObj performSelector:NSSelectorFromString(@"setCode:") withObject:eventKey];
-        [eventObj performSelector:NSSelectorFromString(@"setParams:") withObject:paramter ? paramter : @{}];
-        id beaconInstance = [cls performSelector:NSSelectorFromString(@"sharedInstance")];
         
-        [beaconInstance performSelector:NSSelectorFromString(@"reportEvent:") withObject:eventObj];
-#pragma clang diagnostic pop
+        Class clsClass = NSClassFromString(@"QCloudCLSTrackService");
+        NSDictionary * paramter = @{
+            @"sdk_name":[NSString stringWithFormat:@"QCloud%@SDK",productName.uppercaseString], //  sdk名称,
+            @"sdk_version_code":sdkVersion?:@"", //  sdk版本号,
+            @"sdk_version_name":sdkVersionName?:@"", //  sdk版本名称,
+            @"cls_report":clsClass != nil?@"true":@"false"
+        };
+        id instance = [cls performSelector:NSSelectorFromString(@"singleService")];
+        SEL selector = NSSelectorFromString(@"reportSimpleDataWithEventParams:");
+
+    
+        if ([instance respondsToSelector:selector]) {
+            NSMethodSignature *methodSignature = [instance methodSignatureForSelector:selector];
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:methodSignature];
+            [invocation setSelector:selector];
+            [invocation setArgument:&paramter atIndex:2];
+            [invocation invokeWithTarget:instance];
+        }
     }
 }
 @end
