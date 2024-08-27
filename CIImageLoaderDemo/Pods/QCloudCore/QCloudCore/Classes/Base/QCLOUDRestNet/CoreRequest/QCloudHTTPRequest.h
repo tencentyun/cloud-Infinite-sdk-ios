@@ -37,6 +37,7 @@ typedef void (^QCloudHTTPRequestConfigure)(QCloudRequestSerializer *_Nonnull req
 
 /// sdk内部管理，业务测无需设置。
 @property (nonatomic, assign, readonly) BOOL isRetry;
+@property (nonatomic, assign) NSInteger retryCount;
 
 /**
  该任务所处的服务
@@ -47,6 +48,8 @@ typedef void (^QCloudHTTPRequestConfigure)(QCloudRequestSerializer *_Nonnull req
  如果存在改参数，则数据会下载到改路径指名的地址下面，而不会写入内存中。
  */
 @property (nonatomic, strong) NSURL *_Nonnull downloadingURL;
+
+@property (nonatomic, strong , readonly) NSURL *_Nonnull downloadingTempURL;
 
 /**
  本地已经下载的数据偏移量，如果使用则会从改位置开始下载，如果不使用，则从头开始下载，如果您使用了Range参数，则需要注意改参数。
@@ -137,5 +140,9 @@ typedef void (^QCloudHTTPRequestConfigure)(QCloudRequestSerializer *_Nonnull req
 
 - (void)onReviveErrorResponse:(NSURLResponse *_Nullable)prsponse error:(NSError *_Nullable)error;
 - (void)onReciveRespone:(NSURLResponse *_Nullable)response data:(NSData *_Nullable)data;
+
+-(BOOL)needChangeHost;
+
++(BOOL)needChangeHost:(NSString *_Nullable)host;
 
 @end

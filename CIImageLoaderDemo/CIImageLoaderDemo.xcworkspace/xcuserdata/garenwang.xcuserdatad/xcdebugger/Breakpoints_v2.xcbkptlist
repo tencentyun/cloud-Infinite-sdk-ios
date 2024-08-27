@@ -82,53 +82,6 @@
             endingLineNumber = "211"
             landmarkName = "-initWithCoder:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "82B277AA-A722-4F7A-9B1E-B81053ACB2DD - 5a1e34975f2416c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDAnimatedImage initWithCoder:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImage.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "211"
-                  endingLineNumber = "211"
-                  offsetFromSymbolStart = "883">
-               </Location>
-               <Location
-                  uuid = "82B277AA-A722-4F7A-9B1E-B81053ACB2DD - 5a1e34975f2416c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDAnimatedImage initWithCoder:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImage.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "211"
-                  endingLineNumber = "211"
-                  offsetFromSymbolStart = "973">
-               </Location>
-               <Location
-                  uuid = "82B277AA-A722-4F7A-9B1E-B81053ACB2DD - 5a1e34975f2416c1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDAnimatedImage initWithCoder:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDAnimatedImage.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "211"
-                  endingLineNumber = "211"
-                  offsetFromSymbolStart = "656">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -145,53 +98,6 @@
             endingLineNumber = "117"
             landmarkName = "-canIncrementalDecodeFromData:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AE2B3E65-930A-46E1-AD75-251FA1F6E2D0 - 2a54ef26cbb8d869"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[SDImageIOCoder createBitmapPDFWithData:pageNumber:targetSize:preserveAspectRatio:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageIOCoder.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
-                  offsetFromSymbolStart = "1399">
-               </Location>
-               <Location
-                  uuid = "AE2B3E65-930A-46E1-AD75-251FA1F6E2D0 - 2a54ef26cbb8d869"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[SDImageIOCoder createBitmapPDFWithData:pageNumber:targetSize:preserveAspectRatio:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageIOCoder.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
-                  offsetFromSymbolStart = "1579">
-               </Location>
-               <Location
-                  uuid = "AE2B3E65-930A-46E1-AD75-251FA1F6E2D0 - 2a54ef26cbb8d869"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[SDImageIOCoder createBitmapPDFWithData:pageNumber:targetSize:preserveAspectRatio:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageIOCoder.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "117"
-                  endingLineNumber = "117"
-                  offsetFromSymbolStart = "1092">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -208,53 +114,6 @@
             endingLineNumber = "47"
             landmarkName = "-loaders"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C3AB54C5-EE21-4C80-9136-034B40DD9CFE - 5cc014b3b95fecde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDImageLoadersManager loaders]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageLoadersManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "184">
-               </Location>
-               <Location
-                  uuid = "C3AB54C5-EE21-4C80-9136-034B40DD9CFE - 5cc014b3b95fecde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDImageLoadersManager loaders]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageLoadersManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "238">
-               </Location>
-               <Location
-                  uuid = "C3AB54C5-EE21-4C80-9136-034B40DD9CFE - 5cc014b3b95fecde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDImageLoadersManager loaders]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDImageLoadersManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "47"
-                  endingLineNumber = "47"
-                  offsetFromSymbolStart = "192">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -299,53 +158,6 @@
             endingLineNumber = "176"
             landmarkName = "-invalidateSessionAndCancel:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "D3BB0D2F-A342-4B86-807E-E4E8DAF889BC - f9ccc8b6e2115900"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDWebImageDownloader invalidateSessionAndCancel:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloader.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "159">
-               </Location>
-               <Location
-                  uuid = "D3BB0D2F-A342-4B86-807E-E4E8DAF889BC - f9ccc8b6e2115900"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDWebImageDownloader invalidateSessionAndCancel:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloader.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "213">
-               </Location>
-               <Location
-                  uuid = "D3BB0D2F-A342-4B86-807E-E4E8DAF889BC - f9ccc8b6e2115900"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[SDWebImageDownloader invalidateSessionAndCancel:]"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDownloader.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "176"
-                  endingLineNumber = "176"
-                  offsetFromSymbolStart = "144">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -522,53 +334,6 @@
             endingLineNumber = "90"
             landmarkName = "SDScaledImageForScaleFactor(scale, image)"
             landmarkType = "9">
-            <Locations>
-               <Location
-                  uuid = "FA9A6008-CCDA-4C12-87BD-0E3AC8F6C9A2 - 486bcd06cab172ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SDScaledImageForScaleFactor"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDefine.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "410">
-               </Location>
-               <Location
-                  uuid = "FA9A6008-CCDA-4C12-87BD-0E3AC8F6C9A2 - 486bcd06cab172ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SDScaledImageForScaleFactor"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDefine.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "536">
-               </Location>
-               <Location
-                  uuid = "FA9A6008-CCDA-4C12-87BD-0E3AC8F6C9A2 - 486bcd06cab172ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "SDScaledImageForScaleFactor"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageDefine.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "90"
-                  endingLineNumber = "90"
-                  offsetFromSymbolStart = "304">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -681,53 +446,6 @@
             endingLineNumber = "375"
             landmarkName = "-callDownloadProcessForOperation:url:options:context:cachedImage:cachedData:cacheType:progress:completed:"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "6EC342F9-FDCD-4D52-A28A-159872898CD0 - b6e33f056817cabc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__97-[SDWebImageManager callOriginalCacheProcessForOperation:url:options:context:progress:completed:]_block_invoke"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "376"
-                  endingLineNumber = "376"
-                  offsetFromSymbolStart = "721">
-               </Location>
-               <Location
-                  uuid = "6EC342F9-FDCD-4D52-A28A-159872898CD0 - b6e33f056817cabc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__97-[SDWebImageManager callOriginalCacheProcessForOperation:url:options:context:progress:completed:]_block_invoke"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "376"
-                  endingLineNumber = "376"
-                  offsetFromSymbolStart = "811">
-               </Location>
-               <Location
-                  uuid = "6EC342F9-FDCD-4D52-A28A-159872898CD0 - b6e33f056817cabc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__97-[SDWebImageManager callOriginalCacheProcessForOperation:url:options:context:progress:completed:]_block_invoke"
-                  moduleName = "SDWebImage"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/garenwang/Documents/code/cloud-Infinite-sdk-ios/CIImageLoaderDemo/Pods/SDWebImage/SDWebImage/Core/SDWebImageManager.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "376"
-                  endingLineNumber = "376"
-                  offsetFromSymbolStart = "604">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

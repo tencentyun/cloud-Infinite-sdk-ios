@@ -11,8 +11,8 @@
 #endif
 
 #import "AVIFDecoderHelper.h"
-#import "UIImage+AVIFDecode.h"
 #import "UIImageView+AVIF.h"
+#import "UIImage+AVIFDecode.h"
 #import "avif.h"
 #import "dav1d.h"
 #import "internal.h"

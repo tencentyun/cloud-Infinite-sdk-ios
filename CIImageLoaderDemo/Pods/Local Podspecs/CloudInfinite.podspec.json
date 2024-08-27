@@ -1,6 +1,6 @@
 {
   "name": "CloudInfinite",
-  "version": "1.5.1",
+  "version": "1.5.3",
   "summary": "CloudInfinite 腾讯云iOS-SDK组件",
   "description": "数据万象sdk",
   "homepage": "https://cloud.tencent.com/",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/tencentyun/cloud-Infinite-sdk-ios.git",
-    "tag": "1.5.1"
+    "tag": "1.5.3"
   },
   "pod_target_xcconfig": {
     "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
@@ -45,7 +45,7 @@
       "source_files": "CloudInfinite/Classes/Loader/*",
       "dependencies": {
         "QCloudCore/WithoutMTA": [
-
+          "6.4.3"
         ],
         "CloudInfinite/CloudInfinite": [
 
@@ -67,7 +67,7 @@
       "vendored_frameworks": "CloudInfinite/Classes/TPG/TPGDecoder/libpng.framework",
       "dependencies": {
         "QCloudTrack/Beacon": [
-          "6.3.5"
+          "6.4.3"
         ]
       }
     },
@@ -90,16 +90,16 @@
       "source_files": [
         "CloudInfinite/Classes/AVIF/*",
         "CloudInfinite/Classes/AVIF/AVIFDecoder/*",
-        "CloudInfinite/Classes/AVIF/AVIFDecoder/include/*",
+        "CloudInfinite/Classes/AVIF/Lib/include/*",
         "CloudInfinite/Classes/Quality/*"
       ],
       "vendored_libraries": [
-        "CloudInfinite/Classes/AVIF/AVIFDecoder/*.a",
+        "CloudInfinite/Classes/AVIF/Lib/*.a",
         "CloudInfinite/Classes/Lib/*.a"
       ],
       "dependencies": {
         "QCloudTrack/Beacon": [
-          "6.3.5"
+          "6.4.3"
         ]
       }
     },
@@ -108,13 +108,10 @@
       "source_files": [
         "CloudInfinite/Classes/AVIF/*",
         "CloudInfinite/Classes/AVIF/AVIFDecoder/*",
-        "CloudInfinite/Classes/AVIF/AVIFDecoder/include/*",
+        "CloudInfinite/Classes/AVIF/LibSlim/include/*",
         "CloudInfinite/Classes/Quality/*"
       ],
-      "vendored_libraries": [
-        "CloudInfinite/Classes/AVIF/AVIFDecoder/*.a",
-        "CloudInfinite/Classes/Lib/*.a"
-      ]
+      "vendored_libraries": "CloudInfinite/Classes/AVIF/LibSlim/*.a"
     },
     {
       "name": "SDWebImage-CloudInfinite",

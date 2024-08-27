@@ -290,22 +290,23 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
 }
 
 + (CGColorSpaceRef)colorSpaceGetDeviceRGB {
+#if SD_MAC
+    NSScreen *mainScreen = nil;
+    if (@available(macOS 10.12, *)) {
+        mainScreen = [NSScreen mainScreen];
+    } else {
+        mainScreen = [NSScreen screens].firstObject;
+    }
+    CGColorSpaceRef colorSpace = mainScreen.colorSpace.CGColorSpace;
+    return colorSpace;
+#else
     static CGColorSpaceRef colorSpace;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-#if SD_MAC
-        NSScreen *mainScreen = nil;
-        if (@available(macOS 10.12, *)) {
-            mainScreen = [NSScreen mainScreen];
-        } else {
-            mainScreen = [NSScreen screens].firstObject;
-        }
-        colorSpace = mainScreen.colorSpace.CGColorSpace;
-#else
         colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-#endif
     });
     return colorSpace;
+#endif
 }
 
 + (SDImagePixelFormat)preferredPixelFormat:(BOOL)containsAlpha {
@@ -316,14 +317,14 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
         cgImage = SDImageGetNonAlphaDummyImage().CGImage;
     }
     CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(cgImage);
-    size_t bitsPerPixel = 8;
+    size_t bitsPerComponent = 8;
     if (SD_OPTIONS_CONTAINS(bitmapInfo, kCGBitmapFloatComponents)) {
-        bitsPerPixel = 16;
+      bitsPerComponent = 16;
     }
     size_t components = 4; // Hardcode now
     // https://github.com/path/FastImageCache#byte-alignment
     // A properly aligned bytes-per-row value must be a multiple of 8 pixels × bytes per pixel.
-    size_t alignment = (bitsPerPixel / 8) * components * 8;
+    size_t alignment = (bitsPerComponent / 8) * components * 8;
     SDImagePixelFormat pixelFormat = {
         .bitmapInfo = bitmapInfo,
         .alignment = alignment
@@ -380,6 +381,45 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     return hasAlpha;
 }
 
++ (BOOL)CGImageIsLazy:(CGImageRef)cgImage {
+    if (!cgImage) {
+        return NO;
+    }
+    // CoreGraphics use CGImage's C struct filed (offset 0xd8 on iOS 17.0)
+    // But since the description of `CGImageRef` always contains the `[DP]` (DataProvider) and `[IP]` (ImageProvider), we can use this as a hint
+    NSString *description = (__bridge_transfer NSString *)CFCopyDescription(cgImage);
+    if (description) {
+        // Solution 1: Parse the description to get provider
+        // <CGImage 0x10740ffe0> (IP) -> YES
+        // <CGImage 0x10740ffe0> (DP) -> NO
+        NSArray<NSString *> *lines = [description componentsSeparatedByString:@"\n"];
+        if (lines.count > 0) {
+            NSString *firstLine = lines[0];
+            NSRange startRange = [firstLine rangeOfString:@"("];
+            NSRange endRange = [firstLine rangeOfString:@")"];
+            if (startRange.location != NSNotFound && endRange.location != NSNotFound) {
+                NSRange resultRange = NSMakeRange(startRange.location + 1, endRange.location - startRange.location - 1);
+                NSString *providerString = [firstLine substringWithRange:resultRange];
+                if ([providerString isEqualToString:@"IP"]) {
+                    return YES;
+                } else if ([providerString isEqualToString:@"DP"]) {
+                    return NO;
+                } else {
+                    // New cases ? fallback
+                }
+            }
+        }
+    }
+    // Solution 2: Use UTI metadata
+    CFStringRef uttype = CGImageGetUTType(cgImage);
+    if (uttype) {
+        // Only ImageIO can set `com.apple.ImageIO.imageSourceTypeIdentifier` metadata for lazy decoded CGImage
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
 + (CGImageRef)CGImageCreateDecoded:(CGImageRef)cgImage {
     return [self CGImageCreateDecoded:cgImage orientation:kCGImagePropertyOrientationUp];
 }
@@ -434,45 +474,110 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
     if (!cgImage) {
         return NULL;
     }
+    if (size.width == 0 || size.height == 0) {
+        return NULL;
+    }
     size_t width = CGImageGetWidth(cgImage);
     size_t height = CGImageGetHeight(cgImage);
     if (width == size.width && height == size.height) {
+        // Already same size
         CGImageRetain(cgImage);
         return cgImage;
     }
+    size_t bitsPerComponent = CGImageGetBitsPerComponent(cgImage);
+    if (bitsPerComponent != 8 && bitsPerComponent != 16 && bitsPerComponent != 32) {
+        // Unsupported
+        return NULL;
+    }
+    size_t bitsPerPixel = CGImageGetBitsPerPixel(cgImage);
+    CGColorSpaceRef colorSpace = CGImageGetColorSpace(cgImage);
+    CGColorRenderingIntent renderingIntent = CGImageGetRenderingIntent(cgImage);
+    CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(cgImage);
+    CGImageAlphaInfo alphaInfo = bitmapInfo & kCGBitmapAlphaInfoMask;
+    CGImageByteOrderInfo byteOrderInfo = bitmapInfo & kCGBitmapByteOrderMask;
+    CGBitmapInfo alphaBitmapInfo = (uint32_t)byteOrderInfo;
     
+    // Input need to convert with alpha
+    if (alphaInfo == kCGImageAlphaNone) {
+        // Convert RGB8/16/F -> ARGB8/16/F
+        alphaBitmapInfo |= kCGImageAlphaFirst;
+    } else {
+        alphaBitmapInfo |= alphaInfo;
+    }
+    uint32_t components;
+    if (alphaInfo == kCGImageAlphaOnly) {
+        // Alpha only, simple to 1 channel
+        components = 1;
+    } else {
+        components = 4;
+    }
+    if (SD_OPTIONS_CONTAINS(bitmapInfo, kCGBitmapFloatComponents)) {
+        // Keep float components
+        alphaBitmapInfo |= kCGBitmapFloatComponents;
+    }
     __block vImage_Buffer input_buffer = {}, output_buffer = {};
     @onExit {
         if (input_buffer.data) free(input_buffer.data);
         if (output_buffer.data) free(output_buffer.data);
     };
-    BOOL hasAlpha = [self CGImageContainsAlpha:cgImage];
-    // kCGImageAlphaNone is not supported in CGBitmapContextCreate.
-    // Check #3330 for more detail about why this bitmap is choosen.
-    // From v5.17.0, use runtime detection of bitmap info instead of hardcode.
-    CGBitmapInfo bitmapInfo = [SDImageCoderHelper preferredPixelFormat:hasAlpha].bitmapInfo;
+    // Always provide alpha channel
     vImage_CGImageFormat format = (vImage_CGImageFormat) {
-        .bitsPerComponent = 8,
-        .bitsPerPixel = 32,
-        .colorSpace = NULL,
+        .bitsPerComponent = (uint32_t)bitsPerComponent,
+        .bitsPerPixel = (uint32_t)bitsPerComponent * components,
+        .colorSpace = colorSpace,
+        .bitmapInfo = alphaBitmapInfo,
+        .version = 0,
+        .decode = NULL,
+        .renderingIntent = renderingIntent
+    };
+    // input
+    vImage_Error ret = vImageBuffer_InitWithCGImage(&input_buffer, &format, NULL, cgImage, kvImageNoFlags);
+    if (ret != kvImageNoError) return NULL;
+    // output
+    vImageBuffer_Init(&output_buffer, size.height, size.width, (uint32_t)bitsPerComponent * components, kvImageNoFlags);
+    if (!output_buffer.data) return NULL;
+    
+    if (components == 4) {
+        if (bitsPerComponent == 32) {
+            ret = vImageScale_ARGBFFFF(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        } else if (bitsPerComponent == 16) {
+            ret = vImageScale_ARGB16U(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        } else if (bitsPerComponent == 8) {
+            ret = vImageScale_ARGB8888(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        }
+    } else {
+        if (bitsPerComponent == 32) {
+            ret = vImageScale_PlanarF(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        } else if (bitsPerComponent == 16) {
+            ret = vImageScale_Planar16U(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        } else if (bitsPerComponent == 8) {
+            ret = vImageScale_Planar8(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
+        }
+    }
+    if (ret != kvImageNoError) return NULL;
+    
+    // Convert back to non-alpha for RGB input to preserve pixel format
+    if (alphaInfo == kCGImageAlphaNone) {
+        // in-place, no extra allocation
+        if (bitsPerComponent == 32) {
+            ret = vImageConvert_ARGBFFFFtoRGBFFF(&output_buffer, &output_buffer, kvImageNoFlags);
+        } else if (bitsPerComponent == 16) {
+            ret = vImageConvert_ARGB16UtoRGB16U(&output_buffer, &output_buffer, kvImageNoFlags);
+        } else if (bitsPerComponent == 8) {
+            ret = vImageConvert_ARGB8888toRGB888(&output_buffer, &output_buffer, kvImageNoFlags);
+        }
+        if (ret != kvImageNoError) return NULL;
+    }
+    vImage_CGImageFormat output_format = (vImage_CGImageFormat) {
+        .bitsPerComponent = (uint32_t)bitsPerComponent,
+        .bitsPerPixel = (uint32_t)bitsPerPixel,
+        .colorSpace = colorSpace,
         .bitmapInfo = bitmapInfo,
         .version = 0,
         .decode = NULL,
-        .renderingIntent = CGImageGetRenderingIntent(cgImage)
+        .renderingIntent = renderingIntent
     };
-    
-    vImage_Error a_ret = vImageBuffer_InitWithCGImage(&input_buffer, &format, NULL, cgImage, kvImageNoFlags);
-    if (a_ret != kvImageNoError) return NULL;
-    output_buffer.width = MAX(size.width, 0);
-    output_buffer.height = MAX(size.height, 0);
-    output_buffer.rowBytes = SDByteAlign(output_buffer.width * 4, 64);
-    output_buffer.data = malloc(output_buffer.rowBytes * output_buffer.height);
-    if (!output_buffer.data) return NULL;
-    
-    vImage_Error ret = vImageScale_ARGB8888(&input_buffer, &output_buffer, NULL, kvImageHighQualityResampling);
-    if (ret != kvImageNoError) return NULL;
-    
-    CGImageRef outputImage = vImageCreateCGImageFromBuffer(&output_buffer, &format, NULL, NULL, kvImageNoFlags, &ret);
+    CGImageRef outputImage = vImageCreateCGImageFromBuffer(&output_buffer, &output_format, NULL, NULL, kvImageNoFlags, &ret);
     if (ret != kvImageNoError) {
         CGImageRelease(outputImage);
         return NULL;
@@ -721,7 +826,7 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
             sourceTileImageRef = CGImageCreateWithImageInRect( sourceImageRef, sourceTile );
             if( y == iterations - 1 && remainder ) {
                 float dify = destTile.size.height;
-                destTile.size.height = CGImageGetHeight( sourceTileImageRef ) * imageScale;
+                destTile.size.height = CGImageGetHeight( sourceTileImageRef ) * imageScale + kDestSeemOverlap;
                 dify -= destTile.size.height;
                 destTile.origin.y = MIN(0, destTile.origin.y + dify);
             }
@@ -864,12 +969,13 @@ static const CGFloat kDestSeemOverlap = 2.0f;   // the numbers of pixels to over
         // Check policy (automatic)
         CGImageRef cgImage = image.CGImage;
         if (cgImage) {
-            CFStringRef uttype = CGImageGetUTType(cgImage);
-            if (uttype) {
-                // Only ImageIO can set `com.apple.ImageIO.imageSourceTypeIdentifier`
+            // Check if it's lazy CGImage wrapper or not
+            BOOL isLazy = [SDImageCoderHelper CGImageIsLazy:cgImage];
+            if (isLazy) {
+                // Lazy CGImage should trigger force decode before rendering
                 return YES;
             } else {
-                // Now, let's check if the CGImage is hardware supported (not byte-aligned will cause extra copy)
+                // Now, let's check if this non-lazy CGImage is hardware supported (not byte-aligned will cause extra copy)
                 BOOL isSupported = [SDImageCoderHelper CGImageIsHardwareSupported:cgImage];
                 return !isSupported;
             }

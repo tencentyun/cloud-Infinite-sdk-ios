@@ -23,7 +23,7 @@ SDImageCoderOptions * _Nonnull SDGetDecodeOptionsFromContext(SDWebImageContext *
     NSValue *thumbnailSizeValue;
     BOOL shouldScaleDown = SD_OPTIONS_CONTAINS(options, SDWebImageScaleDownLargeImages);
     NSNumber *scaleDownLimitBytesValue = context[SDWebImageContextImageScaleDownLimitBytes];
-    if (!scaleDownLimitBytesValue && shouldScaleDown) {
+    if (scaleDownLimitBytesValue == nil && shouldScaleDown) {
         // Use the default limit bytes
         scaleDownLimitBytesValue = @(SDImageCoderHelper.defaultScaleDownLimitBytes);
     }
@@ -124,9 +124,9 @@ UIImage * _Nullable SDImageCacheDecodeImageData(NSData * _Nonnull imageData, NSS
     }
     if (image) {
         SDImageForceDecodePolicy policy = SDImageForceDecodePolicyAutomatic;
-        NSNumber *polivyValue = context[SDWebImageContextImageForceDecodePolicy];
-        if (polivyValue != nil) {
-            policy = polivyValue.unsignedIntegerValue;
+        NSNumber *policyValue = context[SDWebImageContextImageForceDecodePolicy];
+        if (policyValue != nil) {
+            policy = policyValue.unsignedIntegerValue;
         }
         // TODO: Deprecated, remove in SD 6.0...
 #pragma clang diagnostic push

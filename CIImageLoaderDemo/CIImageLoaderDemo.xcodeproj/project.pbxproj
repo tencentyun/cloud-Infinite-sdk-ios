@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -725,10 +725,9 @@
 			baseConfigurationReference = E568E41250663B583E9CB859 /* Pods-CIImageLoaderDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 88L2Q4487U;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6RL39LH4U4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CIImageLoaderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -741,10 +740,9 @@
 					"$(PROJECT_DIR)/CIImageLoaderDemo",
 					"$(PROJECT_DIR)/CIImageLoaderDemo/AVIF",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.smh.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.smh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.tencent.smh.demo_Production_SignProvision;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -754,10 +752,9 @@
 			baseConfigurationReference = EEB4B47DDBFED6C36B6E394D /* Pods-CIImageLoaderDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 88L2Q4487U;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6RL39LH4U4;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CIImageLoaderDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -770,10 +767,9 @@
 					"$(PROJECT_DIR)/CIImageLoaderDemo",
 					"$(PROJECT_DIR)/CIImageLoaderDemo/AVIF",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.smh.demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tencent.smh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = com.tencent.smh.demo_Production_SignProvision;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

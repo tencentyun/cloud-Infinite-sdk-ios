@@ -39,17 +39,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SDWebImage-SDWebImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SDWebImage.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SDWebImageWebPCoder.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>libwebp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>

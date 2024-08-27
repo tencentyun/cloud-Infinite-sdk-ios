@@ -73,8 +73,8 @@ NSString * const Koriginal_height = @"original_height";
 + (void)trackBaseInfoToTrachCommonParams{
 
     NSString * productName = @"CloudInfoinite";
-    NSString * sdkVersion = @"1.5.2";
-    NSString * sdkVersionName = @"1.5.2";
+    NSString * sdkVersion = @"1.5.3";
+    NSString * sdkVersionName = @"1.5.3";
     
     Class cls = NSClassFromString(@"QCloudTrackService");
     if (cls) {
