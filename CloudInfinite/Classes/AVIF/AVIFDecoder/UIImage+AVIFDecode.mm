@@ -115,6 +115,7 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
             break;
         }
         
+
         avifImageCopy(image, avif_decoder->image, AVIF_PLANES_ALL); //  取出解码器中的图像数据到image对象中,当前仍为YUV数据
         if (scale > 1) {
             avifBool result = avifImageScale(image, width / scale, height / scale, NULL);
@@ -174,8 +175,11 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
             rgb.width = width / scale;
             rgb.height = height / scale;
         }
-        
-        UIImage *img = convertAvifRGBImageToUIImage(rgb);
+        NSData *iccData = nil;
+         if (image->icc.size > 0) {
+             iccData = [NSData dataWithBytes:image->icc.data length:image->icc.size];
+         }
+        UIImage *img = convertAvifRGBImageToUIImage(rgb,iccData);
         [images addObject:img];
         if (rectImage != NULL) {
             avifImageDestroy(rectImage);
@@ -207,7 +211,7 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
     return resultImage;
 }
 
-UIImage * convertAvifRGBImageToUIImage(avifRGBImage avifRGBImage)
+UIImage * convertAvifRGBImageToUIImage(avifRGBImage avifRGBImage,NSData * iccData)
 {
     int width = avifRGBImage.width;
     int height = avifRGBImage.height;
@@ -231,7 +235,12 @@ UIImage * convertAvifRGBImageToUIImage(avifRGBImage avifRGBImage)
     CFDataRef data = CFDataCreate(kCFAllocatorDefault, avifRGBImage.pixels, rowBytes * height);
     CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
     CFRelease(data);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGColorSpaceRef colorSpace = NULL;
+    if (iccData) {
+        colorSpace = CGColorSpaceCreateWithICCProfile((__bridge CFDataRef)iccData);
+    } else {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+    }
     CGImageRef cgImage = CGImageCreate(width,
                                        height,
                                        bitsPerComponent,
