@@ -661,6 +661,9 @@ SDWebImage-CloudInfinite提供了两种加载TPG图片的方式；
 
 ## 更新日志
 (最低版本号1.5.0)
+* #### Version 1.5.4
+    修复avif解码饱和度丢失问题
+  
 * #### Version 1.5.3
     简化AVIF解码器
     
