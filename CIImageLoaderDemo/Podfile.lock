@@ -1,20 +1,20 @@
 PODS:
-  - CloudInfinite (1.5.3):
-    - CloudInfinite/CloudInfinite (= 1.5.3)
-  - CloudInfinite/AVIFSlim (1.5.3)
-  - CloudInfinite/CIDownloader (1.5.3):
+  - CloudInfinite (1.5.4):
+    - CloudInfinite/CloudInfinite (= 1.5.4)
+  - CloudInfinite/AVIFSlim (1.5.4)
+  - CloudInfinite/CIDownloader (1.5.4):
     - CloudInfinite/SDWebImage-CloudInfinite
     - QCloudCore/WithoutMTA
-  - CloudInfinite/CloudInfinite (1.5.3)
-  - CloudInfinite/Loader (1.5.3):
+  - CloudInfinite/CloudInfinite (1.5.4)
+  - CloudInfinite/Loader (1.5.4):
     - CloudInfinite/CloudInfinite
     - QCloudCore/WithoutMTA (= 6.4.3)
-  - CloudInfinite/Quic (1.5.3):
+  - CloudInfinite/Quic (1.5.4):
     - QCloudQuic
-  - CloudInfinite/SDWebImage-CloudInfinite (1.5.3):
+  - CloudInfinite/SDWebImage-CloudInfinite (1.5.4):
     - CloudInfinite/CloudInfinite
     - SDWebImage
-  - CloudInfinite/TPG (1.5.3):
+  - CloudInfinite/TPG (1.5.4):
     - QCloudTrack/Beacon (= 6.4.3)
   - Masonry (1.1.0)
   - QCloudCore/WithoutMTA (6.4.3)
@@ -49,7 +49,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CloudInfinite: 0d810b4dac0dc4130e98968cb4f81bfd66771626
+  CloudInfinite: 302bfd9410cb3db49e7f349af0afaaa89bcd8fc8
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   QCloudCore: 71b30f12a6d55e022b67872dab520178780e75dd
   QCloudQuic: 81e2c29fa8122c1d5e8323a90349683e52c8e101
