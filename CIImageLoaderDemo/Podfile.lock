@@ -1,34 +1,35 @@
 PODS:
-  - CloudInfinite (1.5.4):
-    - CloudInfinite/CloudInfinite (= 1.5.4)
-  - CloudInfinite/AVIFSlim (1.5.4)
-  - CloudInfinite/CIDownloader (1.5.4):
+  - CloudInfinite (1.5.5):
+    - CloudInfinite/CloudInfinite (= 1.5.5)
+  - CloudInfinite/AVIF (1.5.5):
+    - QCloudTrack/Beacon (= 6.4.6)
+  - CloudInfinite/CIDownloader (1.5.5):
     - CloudInfinite/SDWebImage-CloudInfinite
     - QCloudCore/WithoutMTA
-  - CloudInfinite/CloudInfinite (1.5.4)
-  - CloudInfinite/Loader (1.5.4):
+  - CloudInfinite/CloudInfinite (1.5.5)
+  - CloudInfinite/Loader (1.5.5):
     - CloudInfinite/CloudInfinite
-    - QCloudCore/WithoutMTA (= 6.4.3)
-  - CloudInfinite/Quic (1.5.4):
+    - QCloudCore/WithoutMTA (= 6.4.6)
+  - CloudInfinite/Quic (1.5.5):
     - QCloudQuic
-  - CloudInfinite/SDWebImage-CloudInfinite (1.5.4):
+  - CloudInfinite/SDWebImage-CloudInfinite (1.5.5):
     - CloudInfinite/CloudInfinite
     - SDWebImage
-  - CloudInfinite/TPG (1.5.4):
-    - QCloudTrack/Beacon (= 6.4.3)
+  - CloudInfinite/TPG (1.5.5):
+    - QCloudTrack/Beacon (= 6.4.6)
   - Masonry (1.1.0)
-  - QCloudCore/WithoutMTA (6.4.3)
+  - QCloudCore/WithoutMTA (6.4.6)
   - QCloudQuic (6.3.9):
     - QCloudQuic/Default (= 6.3.9)
   - QCloudQuic/Default (6.3.9)
-  - QCloudTrack/Beacon (6.4.3)
-  - SDWebImage (5.19.7):
-    - SDWebImage/Core (= 5.19.7)
-  - SDWebImage/Core (5.19.7)
+  - QCloudTrack/Beacon (6.4.6)
+  - SDWebImage (5.21.0):
+    - SDWebImage/Core (= 5.21.0)
+  - SDWebImage/Core (5.21.0)
 
 DEPENDENCIES:
   - CloudInfinite (from `../`)
-  - CloudInfinite/AVIFSlim (from `../`)
+  - CloudInfinite/AVIF (from `../`)
   - CloudInfinite/CIDownloader (from `../`)
   - CloudInfinite/Loader (from `../`)
   - CloudInfinite/Quic (from `../`)
@@ -49,13 +50,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CloudInfinite: 302bfd9410cb3db49e7f349af0afaaa89bcd8fc8
+  CloudInfinite: 4b114f069c75f5890efa4d0bc755c706f841a61a
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
-  QCloudCore: 71b30f12a6d55e022b67872dab520178780e75dd
+  QCloudCore: 8b7f05d9e82914d8fdfe2e171153e75d3a6726ae
   QCloudQuic: 81e2c29fa8122c1d5e8323a90349683e52c8e101
-  QCloudTrack: 0afbb64be458d2f1d0d3815a60d35f336ca77be7
-  SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
+  QCloudTrack: a4de64e5483ec8667032ac08efec64222de42a19
+  SDWebImage: f84b0feeb08d2d11e6a9b843cb06d75ebf5b8868
 
-PODFILE CHECKSUM: 1c815a72a03704f213f14a7d89d09cb50cb56aa3
+PODFILE CHECKSUM: 2b4b0e084327cf99d388759a6ff87a5827a25335
 
 COCOAPODS: 1.15.2

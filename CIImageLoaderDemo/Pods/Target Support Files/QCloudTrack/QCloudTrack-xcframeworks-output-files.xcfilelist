@@ -1,0 +1,2 @@
+${PODS_XCFRAMEWORKS_BUILD_DIR}/QCloudTrack/Beacon/COSBeaconAPI_Base.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/QCloudTrack/Beacon/QimeiSDK.framework

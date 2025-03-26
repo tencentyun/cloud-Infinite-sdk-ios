@@ -11,6 +11,10 @@
 #endif
 
 #import "QCloudThreadSafeMutableDictionary.h"
+#import "QCloudCustomLoader.h"
+#import "QCloudCustomLoaderTask.h"
+#import "QCloudCustomSession.h"
+#import "QCloudLoaderManager.h"
 #import "NSDate+QCloudComapre.h"
 #import "QCloudFCUUID.h"
 #import "UIDevice+QCloudFCUUID.h"

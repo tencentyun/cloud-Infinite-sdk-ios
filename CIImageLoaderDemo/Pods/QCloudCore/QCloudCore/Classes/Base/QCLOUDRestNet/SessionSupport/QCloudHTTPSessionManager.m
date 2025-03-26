@@ -28,7 +28,7 @@
 #import "UIDevice+QCloudFCUUID.h"
 #import "QCloudThreadSafeMutableDictionary.h"
 #import "QCloudWeakProxy.h"
-
+#import "QCloudLoaderManager.h"
 #ifndef __IPHONE_13_0
 #define __IPHONE_13_0    130000
 #endif
@@ -104,6 +104,7 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
     } else {
         QCloudLogDebug(@"quicSession is nil");
     }
+    
     _buildDataQueue = dispatch_queue_create("com.tencent.qcloud.build.data", NULL);
     _taskQueue = [NSMutableDictionary new];
     _operationQueue = [QCloudOperationQueue new];
@@ -127,8 +128,6 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
     }
 }
 
-- (void)cancelRequests:(NSArray<NSNumber *> *)requestID {
-}
 - (void)cacheTask:(NSURLSessionTask *)task data:(QCloudURLSessionTaskData *)data forSEQ:(int)seq {
     if (!task) {
         return;
@@ -227,10 +226,15 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
         
        #endif
     }
-}
+} 
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task willPerformHTTPRedirection:(NSHTTPURLResponse *)response newRequest:(NSURLRequest *)request completionHandler:(void (^)(NSURLRequest * _Nullable))completionHandler{
+    
     QCloudURLSessionTaskData *taskData = [self taskDataForTask:task];
+    if (!taskData.httpRequest.runOnService.configuration.enableGlobalRedirection) {
+        completionHandler(nil);
+        return;
+    }
     if(![taskData.httpRequest needChangeHost] || taskData.httpRequest.runOnService.configuration.disableChangeHost == YES || [response.allHeaderFields.allKeys containsObject:@"x-cos-request-id"] || [request.URL.absoluteURL.host rangeOfString:@"tencentcos.cn"].length > 0){
         completionHandler(request);
     }else{
@@ -307,7 +311,7 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
-    QCloudLogInfo(@"任务完成的回调 didCompleteWithError response = %@ error = ", task.response, error);
+    QCloudLogInfo(@"任务完成的回调 didCompleteWithError response = %@ error = %@", task.response, error);
     [[NSNotificationCenter defaultCenter]
         postNotificationName:kQCloudRestNetURLUsageNotification
                       object:nil
@@ -363,9 +367,13 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
                             if ([task respondsToSelector:@selector(countOfBytesSent)]) {
                                 countOfBytesSent = task.countOfBytesSent;
                             }
+                            int64_t countOfBytesExpectedToSend = 0;
+                            if ([task respondsToSelector:@selector(countOfBytesExpectedToSend)]) {
+                                countOfBytesExpectedToSend = task.countOfBytesExpectedToSend;
+                            }
                             [taskData.httpRequest notifySendProgressBytesSend:-(countOfBytesSent)
                                                                totalBytesSend:countOfBytesSent
-                                                     totalBytesExpectedToSend:task.countOfBytesExpectedToSend];
+                                                     totalBytesExpectedToSend:countOfBytesExpectedToSend];
                         }
                         QCloudHTTPRequest *httpRequset = taskData.httpRequest;
                         [taskData restData];
@@ -573,8 +581,10 @@ QCloudThreadSafeMutableDictionary *QCloudBackgroundSessionManagerCache(void) {
     }
     NSURLSessionDataTask *task = nil;
     id quicTask = nil;
-
-    if (!httpRequest.enableQuic) {
+    id <QCloudCustomLoader> loader = [[QCloudLoaderManager manager] getAvailableLoader:httpRequest];
+    if ([QCloudLoaderManager manager].enable && loader) {
+        task = [loader.session taskWithRequset:transformRequest fromFile:uploadFileURL];
+    }else if (!httpRequest.enableQuic) {
         //如果是文件上传
         if (uploadFileURL) {
             task = [self.session uploadTaskWithRequest:transformRequest fromFile:uploadFileURL];

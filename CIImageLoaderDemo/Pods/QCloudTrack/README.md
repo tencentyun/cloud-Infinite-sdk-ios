@@ -15,6 +15,20 @@
 - 基于 COS JSON API 封装的 SDK
 - 基于 COS XML API 封装的 SDK
 
+## xcframework 支持
+提供xcframework打包脚本，可以自行打包。
+克隆本仓库到本地。
+执行以下命令：
+```
+chmod +x xcframework_build.sh
+source xcframework_build.sh
+```
+### framework 说明：
+* QCloudCore.xcframework 和 QCloudCOSXML.xcframework 为COS SDK核心组件，必须添加到项目中。
+* QCloudTrack.xcframework、COSBeaconAPI_Base.xcframework.zip、QimeiSDK.xcframework.zip 为日志上报组件，与 COS 上传下载功能无关，可选使用。
+
+执行结束后，可在仓库根目录看到 xcframework文件夹。
+
 ## 集成SDK
 您可以通过Cocoapods集成、下载源代码或者使用我们打包好的动态库来进行SDK的集成工作。在这里我们推荐您使用Cocoapods的方式来进行集成。在您的podfile中加入需要集成的库即可。    
 如果需要使用基于XML封装的SDK:

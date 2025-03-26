@@ -180,7 +180,9 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
              iccData = [NSData dataWithBytes:image->icc.data length:image->icc.size];
          }
         UIImage *img = convertAvifRGBImageToUIImage(rgb,iccData);
-        [images addObject:img];
+        if (image) {
+            [images addObject:img];
+        }
         if (rectImage != NULL) {
             avifImageDestroy(rectImage);
             rectImage = NULL;
@@ -211,54 +213,85 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
     return resultImage;
 }
 
-UIImage * convertAvifRGBImageToUIImage(avifRGBImage avifRGBImage,NSData * iccData)
-{
+UIImage * convertAvifRGBImageToUIImage(avifRGBImage avifRGBImage, NSData * iccData) {
     int width = avifRGBImage.width;
     int height = avifRGBImage.height;
-    BOOL hasAlpha = avifRGBImage.format==0||avifRGBImage.format==3 ? false : true;
-    BOOL usesU16 = avifRGBImage.depth > 8;
-    size_t bitsPerComponent = usesU16 ? 16 : 8;
-
-    size_t components = 3 + (hasAlpha ? 1 : 0);
-    size_t bytesPerRow = components * bitsPerComponent;
-    size_t rowBytes = avifRGBImage.rowBytes;
-
-    if (avifRGBImage.pixels == NULL) {
+    if (width <= 0 || height <= 0 || avifRGBImage.pixels == NULL) {
         return nil;
     }
     
-    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault ;
-    if (avifRGBImage.format == AVIF_RGB_FORMAT_RGBA) {
-        bitmapInfo = bitmapInfo | kCGImageAlphaLast;
+    // 1. 判断 Alpha 通道
+    BOOL hasAlpha = (avifRGBImage.format == AVIF_RGB_FORMAT_RGBA || avifRGBImage.format == AVIF_RGB_FORMAT_ARGB);
+    size_t components = 3 + (hasAlpha ? 1 : 0);
+    
+    // 2. 计算位深
+    BOOL usesU16 = avifRGBImage.depth > 8;
+    size_t bitsPerComponent = usesU16 ? 16 : 8;
+    size_t bytesPerPixel = (components * bitsPerComponent) / 8;
+    size_t rowBytes = avifRGBImage.rowBytes;
+    
+    // 3. 校验行字节数
+    size_t expectedBytesPerRow = bytesPerPixel * width;
+    if (rowBytes < expectedBytesPerRow) {
+        return nil;
     }
     
+    // 4. 设置 BitmapInfo
+    CGBitmapInfo bitmapInfo = usesU16 ? kCGBitmapByteOrder16Little : kCGBitmapByteOrderDefault;
+    if (hasAlpha) {
+        if (avifRGBImage.format == AVIF_RGB_FORMAT_RGBA) {
+            bitmapInfo |= kCGImageAlphaLast;
+        } else if (avifRGBImage.format == AVIF_RGB_FORMAT_ARGB) {
+            bitmapInfo |= kCGImageAlphaFirst;
+        }
+    } else {
+        bitmapInfo |= kCGImageAlphaNone;
+    }
+    
+    // 5. 创建 Data Provider
     CFDataRef data = CFDataCreate(kCFAllocatorDefault, avifRGBImage.pixels, rowBytes * height);
     CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
     CFRelease(data);
+    
+    // 6. 创建 Color Space
     CGColorSpaceRef colorSpace = NULL;
     if (iccData) {
         colorSpace = CGColorSpaceCreateWithICCProfile((__bridge CFDataRef)iccData);
-    } else {
+    }
+    if (!colorSpace) {
         colorSpace = CGColorSpaceCreateDeviceRGB();
     }
-    CGImageRef cgImage = CGImageCreate(width,
-                                       height,
-                                       bitsPerComponent,
-                                       bytesPerRow,
-                                       rowBytes,
-                                       colorSpace,
-                                       bitmapInfo,
-                                       provider,
-                                       NULL,
-                                       NO,
-                                       kCGRenderingIntentDefault);
-    UIImage *image = nil;
-    if (nil != cgImage) {
-        image = [UIImage imageWithCGImage:cgImage];
+    if (!colorSpace) {
+        CGDataProviderRelease(provider);
+        return nil;
     }
+    
+    // 7. 创建 CGImage
+    CGImageRef cgImage = CGImageCreate(
+        width,
+        height,
+        bitsPerComponent,
+        bitsPerComponent * components,
+        rowBytes,
+        colorSpace,
+        bitmapInfo,
+        provider,
+        NULL,
+        NO,
+        kCGRenderingIntentDefault
+    );
+    
+    // 8. 清理资源
     CGColorSpaceRelease(colorSpace);
-    CGImageRelease(cgImage);
     CGDataProviderRelease(provider);
+    
+    if (!cgImage) {
+        return nil;
+    }
+    
+    // 9. 生成 UIImage
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
     return image;
 }
 
