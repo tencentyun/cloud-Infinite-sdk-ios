@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   s.platform = :ios
-  s.ios.deployment_target = '9.0'
+  s.ios.deployment_target = '10.0'
   s.static_framework = true
   s.frameworks = 'UIKit','Foundation','ImageIO'
   s.libraries = 'z','c++'
