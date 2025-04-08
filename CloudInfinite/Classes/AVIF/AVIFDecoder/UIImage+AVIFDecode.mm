@@ -91,12 +91,12 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
     
 
     
-    uint64_t duration = 0;
+    double duration = 0;
     for (int idx=0;idx<total_frames;idx++) {
         avifImageTiming outtiming = {0};    // 动图delay延时数据结构体
         result = avifDecoderNthImageTiming(avif_decoder, idx, &outtiming);
         uint64_t timescale = outtiming.timescale;    // 动图delay的拍率(一秒x拍)
-        duration += outtiming.durationInTimescales;  //  delay拍数
+        duration += outtiming.duration;  //  delay拍数
         if (result != AVIF_RESULT_OK || timescale <= 0 || duration <= 0) {
             
             [CIQualityDataUploader startReportFailureEventKey:KEvent_key_decode paramters:@{Kerror_code:@(result).stringValue,Kerror_message:@"UIImage+AVIFDecode.m:UIImage* decodeAVIF(NSData * data) + 141:avifDecoderNthImageTiming",Kdecode_x:@(rect.origin.x),Kdecode_y:@(rect.origin.y),Koriginal_width:@(beaconWidth),Koriginal_height:@(beaconHeight),Kdecode_sample:@(scale),Kdecode_sample:@(scale),Kdecode_width:@(rect.size.width),Kdecode_height:@(rect.size.height),Kdecode_x:@(rect.origin.x),Kdecode_y:@(rect.origin.y),Kimage_format:@"avif",Kdata_size:@(src_size),Kanimation:@(0),Kdecode_target_format:@"jpg"}];
@@ -197,7 +197,7 @@ UIImage* decodeAVIF(NSData * data,int scale ,CGRect rect,NSError ** error)
     
     UIImage * resultImage;
     if (images.count > 1) {
-        resultImage = [UIImage animatedImageWithImages: [images copy] duration:(duration/1000.f)];
+        resultImage = [UIImage animatedImageWithImages: [images copy] duration:duration];
     }else{
         resultImage = images.firstObject;
     }
